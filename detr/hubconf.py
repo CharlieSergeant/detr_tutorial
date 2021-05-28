@@ -23,16 +23,17 @@ def _make_detr(backbone_name: str, dilation=False, num_classes=91, mask=False):
     return detr
 
 
-def detr_resnet50(pretrained=False, num_classes=91, return_postprocessor=False):
+def detr_resnet50(pretrained=False, num_classes=3, return_postprocessor=False):
     """
     DETR R50 with 6 encoder and 6 decoder layers.
 
     Achieves 42/62.4 AP/AP50 on COCO val5k.
     """
+    #url="https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth"
     model = _make_detr("resnet50", dilation=False, num_classes=num_classes)
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
-            url="https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth", map_location="cpu", check_hash=True
+            url="http://yoda.kean.edu/~sergeach/pollen/checkpoint425.pth", map_location="cpu", check_hash=True
         )
         model.load_state_dict(checkpoint["model"])
     if return_postprocessor:

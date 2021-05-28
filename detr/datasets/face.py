@@ -1,7 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 """
 Face dataset which returns image_id for evaluation.
-
 Mostly copy-paste from https://github.com/pytorch/vision/blob/13b35ff/references/detection/Face_utils.py
 """
 from pathlib import Path
@@ -149,10 +148,11 @@ def build(image_set, args):
     assert root.exists(), f'provided Face path {root} does not exist'
     mode = 'instances'
     PATHS = {
-        "train": (root / "WIDER_train/images", root / f'train.json'),
-        "val": (root / "WIDER_val/images", root / f'val.json'),
+        "train": (root / "train", root / f'train.json'),
+        "val": (root / "valid", root / f'valid.json'),
+        "test": (root / "test", root / f'test.json')
     }
 
     img_folder, ann_file = PATHS[image_set]
-    dataset = FaceDetection(img_folder, ann_file, transforms=make_Face_transforms(image_set), return_masks=args.masks)
+    dataset = FaceDetection(img_folder, ann_file, transforms=make_face_transforms(image_set), return_masks=args.masks)
     return dataset

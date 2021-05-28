@@ -42,10 +42,9 @@ class DETR(nn.Module):
         self.aux_loss = aux_loss
 
     def forward(self, samples: NestedTensor):
-        """ The forward expects a NestedTensor, which consists of:
+        """ The forward expects a NestedTensor, which consists of:
                - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
-
             It returns a dict with the following elements:
                - "pred_logits": the classification logits (including no-object) for all queries.
                                 Shape= [batch_size x num_queries x (num_classes + 1)]
@@ -306,8 +305,8 @@ def build(args):
     # if args.dataset_file == "coco_panoptic":
     #     num_classes = 250
     if args.dataset_file == "face":
-        num_classes = 1
-        
+        num_classes = 3
+
     device = torch.device(args.device)
 
     backbone = build_backbone(args)
